@@ -1,0 +1,27 @@
+# Terraform providers e cache local
+.terraform/
+.terraform.lock.hcl
+
+# Arquivos de estado (contêm dados sensíveis)
+*.tfstate
+*.tfstate.*
+*.tfstate.backup
+
+# Plano de execução
+plano
+*.tfplan
+
+# Variáveis com segredos
+terraform.tfvars
+
+# Arquivos de override
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+
+# Diretório de crash logs
+crash.log
+crash.*.log%   
+
+docker-compose.yml
