@@ -1,0 +1,11 @@
+name: Teste Workflow
+
+on:
+    workflow_dispatch:
+
+jobs:
+    echo:
+        runs-on: macos
+        steps:
+            - name: Echo Teste
+              run: echo "Deu certo"
