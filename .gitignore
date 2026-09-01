@@ -25,3 +25,4 @@ crash.log
 crash.*.log%   
 
 docker-compose.yml
+.DS_Store
