@@ -5,7 +5,7 @@ on:
 
 jobs:
     echo:
-        runs-on: macos
+        runs-on: self-hosted
         steps:
             - name: Echo Teste
               run: echo "Deu certo"
