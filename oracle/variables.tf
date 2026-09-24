@@ -61,13 +61,14 @@ variable "ic_pub_vm_A" {
   default = {
     display_name : "IC_pub_vm-A"
     assign_public_ip : true
-    availability_domain : "RjRj:US-SANJOSE-1-AD-1"
-    image_ocid : "ocid1.image.oc1.us-sanjose-1.aaaaaaaaoy3dg6f2w5edbvow2i7yymcyxlswnut5xf5ffad7us2eft6kp7oq"
+    availability_domain : "zsFf:SA-SAOPAULO-1-AD-1" # TODO: substituir pelo AD correto
+    image_ocid : "ocid1.image.oc1.sa-saopaulo-1.aaaaaaaajdztjtffhallfzqvmfzsaefyrig4rfeu25vcitky2aqzjb4feiwa"
     shape : {
       name          = "VM.Standard.E2.1.Micro"
       ocpus         = 1
       memory_in_gbs = 1
     }
-    ssh_authorized_keys = ["ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC3qjNb/fSTmjHXClwcI2oARKrB5jH7RePjYWVfXPi6rhvOLN5u7spg3RtuU7mJpF6yEFm/p26rYPrGQWCZaHnDtwbE+U5QxGZYibI02S5cCzvULdcFiuno3F5S8b56ir0LEPHAOaNAKjPIOjQpIFBbN1boEXDq9VF6hFCb/YSCs03tnnVwicIi/BnL/5zhIPKLT/LG3DjZLxgcomnichvdxpNaYphqJnBuCjfoS9yvFxdgvzC0JheUMsWa4xgviYC7D9LoQOx3mIVlLOoh0kzcGcbwjfXQrAb2RFv/etFPibvSB0cmaDxWkwlkaHM0ZrnnAgWuSWig+sh/jOTVCUCP rsa-key-20240817"]
+    ssh_authorized_keys = ["ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC9jJIrDjMI9g7uG0qkeJ5sBuMe7dsTy1cE1AFOjBaZYuJSmb9C62OamRX9VCl3r42umkDU/L0eD++5iMjP7y5yceaJJARuXBogcBwjtEqydpR9eep290X/juhjgd9jQehTrQMhJ5SqTtVQeqwAj0LcDVwYq0Xea/o+ZZvUe36z1me23EzEWdDm4HYI+qDJ2wM+4gjuHCyXlP4RQTd/Cf672nkqn+5+1HLrOthPldcXrJSS5oUkMeUjg+V/JgR7r4y3c2JJJQYFBKrAk8PslPhr5vlMMNxEnt2CuJVmUc/QLaacASEVpPVqP2P9g/LCq52d2779743g7vwRZOHP0Tap gustavogabriellaismann@MacBook-Air-de-Gustavo.local
+gustavogabriellaismann@MacBook-Air-de-Gustavo"]
   }
 }
