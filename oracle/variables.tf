@@ -68,7 +68,6 @@ variable "ic_pub_vm_A" {
       ocpus         = 1
       memory_in_gbs = 1
     }
-    ssh_authorized_keys = ["ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC9jJIrDjMI9g7uG0qkeJ5sBuMe7dsTy1cE1AFOjBaZYuJSmb9C62OamRX9VCl3r42umkDU/L0eD++5iMjP7y5yceaJJARuXBogcBwjtEqydpR9eep290X/juhjgd9jQehTrQMhJ5SqTtVQeqwAj0LcDVwYq0Xea/o+ZZvUe36z1me23EzEWdDm4HYI+qDJ2wM+4gjuHCyXlP4RQTd/Cf672nkqn+5+1HLrOthPldcXrJSS5oUkMeUjg+V/JgR7r4y3c2JJJQYFBKrAk8PslPhr5vlMMNxEnt2CuJVmUc/QLaacASEVpPVqP2P9g/LCq52d2779743g7vwRZOHP0Tap gustavogabriellaismann@MacBook-Air-de-Gustavo.local
-gustavogabriellaismann@MacBook-Air-de-Gustavo"]
+    ssh_authorized_keys = ["ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC9jJIrDjMI9g7uG0qkeJ5sBuMe7dsTy1cE1AFOjBaZYuJSmb9C62OamRX9VCl3r42umkDU/L0eD++5iMjP7y5yceaJJARuXBogcBwjtEqydpR9eep290X/juhjgd9jQehTrQMhJ5SqTtVQeqwAj0LcDVwYq0Xea/o+ZZvUe36z1me23EzEWdDm4HYI+qDJ2wM+4gjuHCyXlP4RQTd/Cf672nkqn+5+1HLrOthPldcXrJSS5oUkMeUjg+V/JgR7r4y3c2JJJQYFBKrAk8PslPhr5vlMMNxEnt2CuJVmUc/QLaacASEVpPVqP2P9g/LCq52d2779743g7vwRZOHP0Tap gustavogabriellaismann@MacBook-Air-de-Gustavo.local"]
   }
 }
