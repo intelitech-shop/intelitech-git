@@ -49,11 +49,15 @@ jobs:
             - name: Terraform Validate
               id: validate
               run: terraform validate
+              env:
+                TF_VAR_compartment_id: ${{secrets.OCI_COMPARTMENT_ID}}
         
             - name: Terraform Plan
               id: plan
               run: terraform plan
               continue-on-error: true
+              env:
+                TF_VAR_compartment_id: ${{secrets.OCI_COMPARTMENT_ID}}
         
             - name: Terraform Plan Status
               if: steps.plan.outcome == 'failure'
@@ -61,3 +65,5 @@ jobs:
 
             - name: Terraform Apply
               run: terraform apply -auto-approve
+              env:
+                TF_VAR_compartment_id: ${{secrets.OCI_COMPARTMENT_ID}}
