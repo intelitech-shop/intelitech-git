@@ -8,7 +8,7 @@ jobs:
         defaults:
             run:
                 shell: bash
-                working-directory: Terraform
+                working-directory: oracle
         
         steps:
             - name: 'Checkout'
