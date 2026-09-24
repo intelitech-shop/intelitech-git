@@ -39,6 +39,9 @@ jobs:
                 oci setup repair-file-permissions --file /home/runner/.oci/config
                 oci setup repair-file-permissions --file /home/runner/.oci/key.pem
 
+            - name: Setup Terraform
+              uses: hashicorp/setup-terraform@v3
+
             - name: Terraform Init
               id: init
               run: terraform init
