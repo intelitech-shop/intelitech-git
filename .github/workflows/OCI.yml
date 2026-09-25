@@ -5,6 +5,7 @@ on:
 jobs:
     OCI_IaC_Deployment:
         runs-on: ubuntu-latest
+        environment: ${{ github.ref_name == 'main' && 'production' || 'development' }}
         defaults:
             run:
                 shell: bash
