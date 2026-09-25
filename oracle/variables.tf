@@ -1,4 +1,32 @@
+variable "tenancy_ocid" {
+  description = "OCID do Tenancy OCI"
+  type        = string
+}
+
+variable "user_ocid" {
+  description = "OCID do usuário OCI"
+  type        = string
+}
+
+variable "fingerprint" {
+  description = "Fingerprint da chave de API OCI"
+  type        = string
+}
+
+variable "private_key" {
+  description = "Conteúdo da chave privada de API OCI"
+  type        = string
+  sensitive   = true
+}
+
+variable "region" {
+  description = "Região OCI"
+  type        = string
+  default     = "sa-saopaulo-1"
+}
+
 variable "compartment_id" {
+
   description = "The OCID of the parent compartment where the resources will be created."
   type        = string
 }
