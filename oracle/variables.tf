@@ -34,7 +34,7 @@ variable "compartment_id" {
 variable "compartment_name" {
   description = "Compartment Name"
   type        = string
-  default     = "cloudquicklabs-compartment"
+  default     = "intelitech-compartment"
 }
 
 variable "compartment_description" {
