@@ -1,6 +1,26 @@
 name: Create OCI with Terraform
 on:
     workflow_dispatch:
+        inputs:
+          apply:
+            description: 'Executar o terraform apply?'
+            required: true
+            default: 'false'
+            type: choice
+            options: 
+              - true
+              - false
+
+            destroy:
+            description: 'Executar o terraform destroy?'
+            required: true
+            default: 'false'
+            type: choice
+            options: 
+              - true
+              - false
+
+
 
 jobs:
     OCI_IaC_Deployment:
@@ -38,7 +58,7 @@ jobs:
         
             - name: Terraform Plan
               id: plan
-              run: terraform plan
+              run: terraform plan -out=tfplan
               continue-on-error: true
         
             - name: Terraform Plan Status
@@ -46,4 +66,9 @@ jobs:
               run: exit 1
 
             - name: Terraform Apply
-              run: terraform apply -auto-approve
+              if: github.event.input.apply == 'true'
+              run: terraform apply -auto-approve tfplan
+
+            - name: Terraform Destroy
+              if: github.event.input.destroy == 'true'
+              run: terraform destroy -auto-approve tfplan
