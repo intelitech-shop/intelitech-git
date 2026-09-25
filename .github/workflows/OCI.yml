@@ -11,7 +11,7 @@ on:
               - true
               - false
 
-            destroy:
+          destroy:
             description: 'Executar o terraform destroy?'
             required: true
             default: 'false'
@@ -58,7 +58,7 @@ jobs:
         
             - name: Terraform Plan
               id: plan
-              run: terraform plan -out=tfplan
+              run: terraform plan -out=tfplan.tfout
               continue-on-error: true
         
             - name: Terraform Plan Status
@@ -66,9 +66,9 @@ jobs:
               run: exit 1
 
             - name: Terraform Apply
-              if: github.event.input.apply == 'true'
-              run: terraform apply -auto-approve tfplan
+              if: github.event.inputs.apply == 'true'
+              run: terraform apply -auto-approve tfplan.tfout
 
             - name: Terraform Destroy
-              if: github.event.input.destroy == 'true'
-              run: terraform destroy -auto-approve tfplan
+              if: github.event.inputs.destroy == 'true'
+              run: terraform apply -destroy -auto-approve tfplan.tfout
