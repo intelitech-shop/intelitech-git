@@ -67,19 +67,18 @@ jobs:
 
             - name: Terraform Apply
               if: github.event.inputs.apply == 'true'
-              run: |
-                MAX_RETRIES=5
-                COUNT=0
-                until terraform apply -auto-approve tfplan.tfout; do
-                  COUNT=$((COUNT + 1))
-                  if [ $COUNT -ge $MAX_RETRIES ]; then
-                    echo "❌ Falhou após $MAX_RETRIES tentativas."
-                    exit 1
-                  fi
-                  echo "⚠️ Out of capacity. Tentativa $COUNT/$MAX_RETRIES. Aguardando 5 minutos..."
-                  sleep 300
-                done
+              run: terraform apply -auto-approve tfplan.tfout
                 echo "✅ VM criada com sucesso!"
+            # TF repo: after apply
+            - name: Export VM IP to GitHub Variable
+              run: |
+                IP=$(terraform -chdir=oracle output -raw vm_public_ip)
+                curl -L -X PATCH \
+                  -H "Authorization: Bearer ${{ secrets.GH_PAT }}" \
+                  -H "Accept: application/vnd.github+json" \
+                  https://api.github.com/repos/intelitech-shop/intelitech-front/actions/variables/VM_PUBLIC_IP \
+                  -d "{\"name\":\"VM_PUBLIC_IP\",\"value\":\"${IP}\"}"
+
 
             - name: Terraform Destroy
               if: github.event.inputs.destroy == 'true'
