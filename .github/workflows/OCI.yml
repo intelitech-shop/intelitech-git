@@ -67,7 +67,19 @@ jobs:
 
             - name: Terraform Apply
               if: github.event.inputs.apply == 'true'
-              run: terraform apply -auto-approve tfplan.tfout
+              run: |
+                MAX_RETRIES=5
+                COUNT=0
+                until terraform apply -auto-approve tfplan.tfout; do
+                  COUNT=$((COUNT + 1))
+                  if [ $COUNT -ge $MAX_RETRIES ]; then
+                    echo "❌ Falhou após $MAX_RETRIES tentativas."
+                    exit 1
+                  fi
+                  echo "⚠️ Out of capacity. Tentativa $COUNT/$MAX_RETRIES. Aguardando 5 minutos..."
+                  sleep 300
+                done
+                echo "✅ VM criada com sucesso!"
 
             - name: Terraform Destroy
               if: github.event.inputs.destroy == 'true'
