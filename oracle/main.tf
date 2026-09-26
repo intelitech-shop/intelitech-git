@@ -103,5 +103,6 @@ resource "oci_core_instance" "ic_pub_vm-A" {
 
   metadata = {
     ssh_authorized_keys = join("\n", [for k in var.ic_pub_vm_A.ssh_authorized_keys : chomp(k)])
+    user_data = base64encode(file("${path.module}/cloud-init.sh"))
   }
 }
