@@ -68,8 +68,7 @@ jobs:
             - name: Terraform Apply
               if: github.event.inputs.apply == 'true'
               run: terraform apply -auto-approve tfplan.tfout
-                echo "✅ VM criada com sucesso!"
-            # TF repo: after apply
+              
             - name: Export VM IP to GitHub Variable
               run: |
                 IP=$(terraform -chdir=oracle output -raw vm_public_ip)
