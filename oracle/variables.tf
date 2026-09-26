@@ -90,11 +90,11 @@ variable "ic_pub_vm_A" {
     display_name : "IC_pub_vm-A"
     assign_public_ip : true
     availability_domain : "zsFf:SA-SAOPAULO-1-AD-1" # TODO: substituir pelo AD correto
-    image_ocid : "ocid1.image.oc1.sa-saopaulo-1.aaaaaaaacsccoglc53hnew4kabqluihun3y3zwchidu2gutjavvk7bvolyqa"
+    image_ocid : "ocid1.image.oc1.sa-saopaulo-1.aaaaaaaajdztjtffhallfzqvmfzsaefyrig4rfeu25vcitky2aqzjb4feiwa"
     shape : {
-      name          = "VM.Standard.A1.Flex"
+      name          = "VM.Standard.E2.1.Micro"
       ocpus         = 1
-      memory_in_gbs = 4
+      memory_in_gbs = 1
     }
     ssh_authorized_keys = ["ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC9jJIrDjMI9g7uG0qkeJ5sBuMe7dsTy1cE1AFOjBaZYuJSmb9C62OamRX9VCl3r42umkDU/L0eD++5iMjP7y5yceaJJARuXBogcBwjtEqydpR9eep290X/juhjgd9jQehTrQMhJ5SqTtVQeqwAj0LcDVwYq0Xea/o+ZZvUe36z1me23EzEWdDm4HYI+qDJ2wM+4gjuHCyXlP4RQTd/Cf672nkqn+5+1HLrOthPldcXrJSS5oUkMeUjg+V/JgR7r4y3c2JJJQYFBKrAk8PslPhr5vlMMNxEnt2CuJVmUc/QLaacASEVpPVqP2P9g/LCq52d2779743g7vwRZOHP0Tap gustavogabriellaismann@MacBook-Air-de-Gustavo.local"]
   }
