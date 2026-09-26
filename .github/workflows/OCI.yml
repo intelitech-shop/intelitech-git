@@ -71,7 +71,7 @@ jobs:
               
             - name: Export VM IP to GitHub Variable
               run: |
-                IP=$(terraform -chdir=oracle output -raw vm_public_ip)
+                IP=$(terraform output -raw vm_public_ip)
                 curl -L -X PATCH \
                   -H "Authorization: Bearer ${{ secrets.GH_PAT }}" \
                   -H "Accept: application/vnd.github+json" \
