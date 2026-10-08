@@ -73,14 +73,14 @@ resource "oci_core_default_route_table" "the_route_table" {
 }
 
 ############################################
-# Auto-discover latest Oracle Linux 8 ARM64 image for A1.Flex
+# Auto-discover latest Oracle Linux 8 x86 image for E2.1.Micro
 ############################################
 
 data "oci_core_images" "ol8_arm" {
   compartment_id           = oci_identity_compartment.example_compartment.id
   operating_system         = "Oracle Linux"
   operating_system_version = "8"
-  shape                    = "VM.Standard.A1.Flex"
+  shape                    = "VM.Standard.E2.1.Micro"
   sort_by                  = "TIMECREATED"
   sort_order               = "DESC"
 }
