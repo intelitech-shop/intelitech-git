@@ -72,9 +72,22 @@ resource "oci_core_default_route_table" "the_route_table" {
   }
 }
 
-# ############################################
-# # Compute Instance
-# ############################################
+############################################
+# Auto-discover latest Oracle Linux 8 ARM64 image for A1.Flex
+############################################
+
+data "oci_core_images" "ol8_arm" {
+  compartment_id           = oci_identity_compartment.example_compartment.id
+  operating_system         = "Oracle Linux"
+  operating_system_version = "8"
+  shape                    = "VM.Standard.A1.Flex"
+  sort_by                  = "TIMECREATED"
+  sort_order               = "DESC"
+}
+
+############################################
+# Compute Instance
+############################################
 
 resource "oci_core_instance" "ic_pub_vm-A" {
   compartment_id      = oci_identity_compartment.example_compartment.id
@@ -83,8 +96,9 @@ resource "oci_core_instance" "ic_pub_vm-A" {
   display_name        = var.ic_pub_vm_A.display_name
 
   source_details {
-    source_id   = var.ic_pub_vm_A.image_ocid
-    source_type = "image"
+    source_type              = "image"
+    source_id                = data.oci_core_images.ol8_arm.images[0].id
+    boot_volume_size_in_gbs  = 50
   }
 
   dynamic "shape_config" {
