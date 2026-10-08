@@ -65,9 +65,15 @@ jobs:
               if: steps.plan.outcome == 'failure'
               run: exit 1
 
-            - name: Terraform Apply
+            - name: Terraform Apply (com retry para Out of Capacity)
               if: github.event.inputs.apply == 'true'
-              run: terraform apply -auto-approve tfplan.tfout
+              run: |
+                for i in 1 2 3 4 5; do
+                  echo "Tentativa $i de 5..."
+                  terraform apply -auto-approve tfplan.tfout && break
+                  echo "Falhou. Aguardando 60s antes de tentar novamente..."
+                  sleep 60
+                done
 
             - name: Export VM IP to GitHub Variable
               run: |

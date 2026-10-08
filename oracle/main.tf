@@ -96,9 +96,8 @@ resource "oci_core_instance" "ic_pub_vm-A" {
   display_name        = var.ic_pub_vm_A.display_name
 
   source_details {
-    source_type              = "image"
-    source_id                = data.oci_core_images.ol8_arm.images[0].id
-    boot_volume_size_in_gbs  = 50
+    source_type = "image"
+    source_id   = data.oci_core_images.ol8_arm.images[0].id
   }
 
   dynamic "shape_config" {
