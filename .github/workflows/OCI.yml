@@ -68,16 +68,16 @@ jobs:
             - name: Terraform Apply
               if: github.event.inputs.apply == 'true'
               run: terraform apply -auto-approve tfplan.tfout
-              
+
             - name: Export VM IP to GitHub Variable
               run: |
                 IP=$(terraform output -raw vm_public_ip)
                 curl -L -X PATCH \
                   -H "Authorization: Bearer ${{ secrets.GH_PAT }}" \
                   -H "Accept: application/vnd.github+json" \
+                  -H "X-GitHub-Api-Version: 2026-03-10" \
                   https://api.github.com/repos/intelitech-shop/intelitech-front/actions/variables/VM_PUBLIC_IP \
-                  -d "{\"name\":\"VM_PUBLIC_IP\",\"value\":\"${IP}\"}"
-
+                  -d '{"name":"VM_PUBLIC_IP","value":"${IP}"}'
 
             - name: Terraform Destroy
               if: github.event.inputs.destroy == 'true'
