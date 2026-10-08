@@ -6,10 +6,21 @@ terraform {
   }
 }
 
+terraform {
+  backend "s3" {
+    bucket = "bucket-20261008-1224"
+    key    = "terraform.tfstate"
+    region = "sa-saopaulo-1"
 
- terraform {
-   backend "http" {
-     address = "https://objectstorage.sa-saopaulo-1.oraclecloud.com/p/UFt6R9QjSuiUfHxThbg_wZSaM4ybjjNMXT0R4OQBryONgOgtEOdb_z_0tzpr6CeY/n/grpfm3smgtze/b/bucket-20260924-0834/o/terraform.tfstate"
-     update_method = "PUT"
+    endpoints = {
+      s3 = "https://grpfm3smgtze.compat.objectstorage.sa-saopaulo-1.oraclecloud.com"
+    }
+
+    use_path_style              = true
+    skip_region_validation      = true
+    skip_credentials_validation = true
+    skip_requesting_account_id  = true
+    skip_metadata_api_check     = true
+    skip_s3_checksum            = true
   }
 }
