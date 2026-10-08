@@ -1,13 +1,8 @@
 #!/bin/bash
-
 set -eux
 
-dnf update -y
-dnf install -y docker git curl
-
-systemctl enable --now docker
-
-usermod -aG docker opc
-
-mkdir -p /opt/myapp
-cd /opt/myapp
+# Atualiza o SO e instala Docker (exemplo)
+sudo dnf update -y
+sudo dnf install -y docker
+sudo systemctl enable --now docker
+sudo usermod -aG docker $(whoami)
