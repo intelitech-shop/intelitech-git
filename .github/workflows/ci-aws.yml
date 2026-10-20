@@ -1,0 +1,99 @@
+name: Create Instance with Terraform
+on:
+    workflow_dispatch:
+        inputs:
+          aws-assume-role-arn:
+            type: string
+            required: true
+          aws-s3-bucket:
+            type: string
+            required: true
+          aws-lock-dynamodb-table:
+            type: string
+            required: true
+          apply:
+            description: 'Executar o terraform apply?'
+            required: true
+            default: 'false'
+            type: choice
+            options: 
+              - true
+              - false
+
+          destroy:
+            description: 'Executar o terraform destroy?'
+            required: true
+            default: 'false'
+            type: choice
+            options: 
+              - true
+              - false
+permissions:
+    id-token: write
+    contents: read
+
+
+
+jobs:
+    AWS_Deployment:
+        runs-on: ubuntu-latest
+        defaults:
+            run:
+                shell: bash
+                working-directory: oracle
+        
+        steps:
+            - name: 'Checkout'
+              uses: actions/checkout@v6
+
+            - name: Setup Terraform
+              uses: hashicorp/setup-terraform@v3
+
+            - name: Configure AWS Credentials
+              uses: aws-actions/configure-aws-credentials@v4
+              with:
+                  role-to-assume: ${{secrets.aws-assume-role-arn}}  
+                  role-session-name: Github_to_AWS_via_FederatedOIDC
+                  aws-region: sa-east-1
+
+            - name: Terraform Init
+              id: init
+              working-directory: aws
+              run: |
+                terraform init \
+                -backend-config="bucket=${{secrets.aws-statefile-s3-bucket}}" \
+                -backend-config="key=${{github.event.repository.name}}" \
+                -backend-config="region=sa-east-1" \
+                -backend-config="dynamodb_table=${{secrets.aws-lock-dynamodb-table}}" \
+
+                
+            - name: Terraform Validate
+              id: validate
+              run: terraform validate
+        
+            - name: Terraform Plan
+              id: plan
+              run: terraform plan -out=tfplan.tfout
+              continue-on-error: true
+        
+            - name: Terraform Plan Status
+              if: steps.plan.outcome == 'failure'
+              run: exit 1
+
+            - name: Terraform Apply 
+              if: github.event.inputs.apply == 'true'
+              run: terraform apply -auto-approve tfplan.tfout
+
+            - name: Export VM IP to GitHub Variable
+              run: |
+                IP=$(terraform output -raw vm_public_ip)
+                curl -L -X PATCH \
+                  -H "Authorization: Bearer ${{ secrets.GH_PAT }}" \
+                  -H "Accept: application/vnd.github+json" \
+                  -H "X-GitHub-Api-Version: 2026-03-10" \
+                  https://api.github.com/repos/intelitech-shop/intelitech-front/actions/variables/VM_PUBLIC_IP \
+                  -d "{\"name\":\"VM_PUBLIC_IP\",\"value\":\"${IP}\"}"
+
+            - name: Terraform Destroy
+              if: github.event.inputs.destroy == 'true'
+              run: terraform apply -destroy -auto-approve
