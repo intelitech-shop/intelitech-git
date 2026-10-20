@@ -2,15 +2,6 @@ name: Create Instance with Terraform
 on:
     workflow_dispatch:
         inputs:
-          aws-assume-role-arn:
-            type: string
-            required: true
-          aws-s3-bucket:
-            type: string
-            required: true
-          aws-lock-dynamodb-table:
-            type: string
-            required: true
           apply:
             description: 'Executar o terraform apply?'
             required: true
@@ -40,7 +31,7 @@ jobs:
         defaults:
             run:
                 shell: bash
-                working-directory: oracle
+                working-directory: aws
         
         steps:
             - name: 'Checkout'
@@ -52,7 +43,7 @@ jobs:
             - name: Configure AWS Credentials
               uses: aws-actions/configure-aws-credentials@v4
               with:
-                  role-to-assume: ${{secrets.aws-assume-role-arn}}  
+                  role-to-assume: ${{secrets.AWS_ASSUME_ROLE_ARN}}  
                   role-session-name: Github_to_AWS_via_FederatedOIDC
                   aws-region: sa-east-1
 
@@ -61,10 +52,10 @@ jobs:
               working-directory: aws
               run: |
                 terraform init \
-                -backend-config="bucket=${{secrets.aws-statefile-s3-bucket}}" \
+                -backend-config="bucket=${{secrets.AWS_STATEFILE_S3_BUCKET}}" \
                 -backend-config="key=${{github.event.repository.name}}" \
                 -backend-config="region=sa-east-1" \
-                -backend-config="dynamodb_table=${{secrets.aws-lock-dynamodb-table}}" \
+                -backend-config="dynamodb_table=${{secrets.AWS_LOCK_DYNAMODB_TABLE}}" \
 
                 
             - name: Terraform Validate
