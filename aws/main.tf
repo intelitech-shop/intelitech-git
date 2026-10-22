@@ -1,5 +1,6 @@
-provider "aws"{
-    region = "sa-east-1"
+provider "aws" {
+  alias  = "east-1"
+  region = "sa-east-1"
 }
 
 terraform {
