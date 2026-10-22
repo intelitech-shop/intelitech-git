@@ -37,15 +37,14 @@ jobs:
             - name: 'Checkout'
               uses: actions/checkout@v6
 
+            - name: "Configure AWS Credentials" 
+              uses: aws-actions/configure-aws-credentials@v4.3.1
+              with:
+                role-to-assume: ${{secrets.AWS_ASSUME_ROLE_ARN}}
+                aws-region: sa-east-1
+            
             - name: Setup Terraform
               uses: hashicorp/setup-terraform@v3
-
-            - name: Configure AWS Credentials
-              uses: aws-actions/configure-aws-credentials@v4
-              with:
-                  role-to-assume: ${{secrets.AWS_ASSUME_ROLE_ARN}}  
-                  role-session-name: Github_to_AWS_via_FederatedOIDC
-                  aws-region: sa-east-1
 
             - name: Terraform Init
               id: init
