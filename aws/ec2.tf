@@ -1,5 +1,6 @@
 data "aws_ami" "ubuntu" {
     most_recent = true
+    provider      = aws.east-1
 
     filter {
       name   = "name"
@@ -10,18 +11,6 @@ data "aws_ami" "ubuntu" {
 
 }
 
-data "aws_ami" "ubuntu-west-2" {
-    most_recent = true
-    provider      = aws.east-1
-
-    filter {
-      name   = "name"
-      values = ["ubuntu/images/hvm-ssd/ubuntu-focal-20.04-amd64-server-*"]
-    }
-
-    owners  = ["099720109477"]
-
-} 
 
 resource "aws_instance" "web" {
   ami           = data.aws_ami.ubuntu.id
