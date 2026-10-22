@@ -22,6 +22,8 @@ on:
 permissions:
     id-token: write
     contents: read
+env:
+  ACTIONS_STEP_DEBUG: true
 
 
 
