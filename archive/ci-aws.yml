@@ -48,6 +48,11 @@ jobs:
             - name: Setup Terraform
               uses: hashicorp/setup-terraform@v3
 
+            - name: Set Terraform variables from GitHub Secrets
+              run: |
+                echo "TF_VAR_ssh_key_name=${{ secrets.SSH_KEY_NAME }}" >> $GITHUB_ENV
+                echo "TF_VAR_ssh_public_key=${{ secrets.SSH_PUBLIC_KEY }}" >> $GITHUB_ENV
+                
             - name: Terraform Init
               id: init
               working-directory: aws

@@ -15,7 +15,7 @@ data "aws_ami" "ubuntu" {
 resource "aws_instance" "web" {
   ami           = data.aws_ami.ubuntu.id
   instance_type = "t3.micro"
-  key_name = "chave-site-prod"
+  key_name = aws_key_pair.ssh_key.key_name
   vpc_security_group_ids = [aws_security_group.website_sg.id]
   iam_instance_profile = "ECR-EC2-ROLE"
 
@@ -38,7 +38,7 @@ resource "aws_security_group" "website_sg" {
 
 resource "aws_vpc_security_group_ingress_rule" "allow_ssh" {
   security_group_id = aws_security_group.website_sg.id
-  cidr_ipv4         = "seu-ip/32"
+  cidr_ipv4         = var.ssh_ingress_cidr
   from_port         = 22
   ip_protocol       = "tcp"
   to_port           = 22
